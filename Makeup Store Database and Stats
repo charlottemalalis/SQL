@@ -1,0 +1,20 @@
+CREATE TABLE makeup (id integer primary key, name TEXT, cost INTEGER, aisle INTEGER, stock INTEGER);
+INSERT INTO makeup VALUES (1, 'Foundation' , 21, 3, 6);
+INSERT INTO makeup VALUES (2, 'Concealer', 15, 2, 4);
+INSERT INTO makeup VALUES (3, 'Bronzer' , 18, 3, 4); 
+INSERT INTO makeup VALUES (4, 'Blush' ,14, 2, 10); 
+INSERT INTO makeup VALUES (5, 'Eyeliner' ,17, 6, 22);
+INSERT INTO makeup VALUES (6, 'Eyebrows' , 22, 7, 33); 
+INSERT INTO makeup VALUES (7, 'Lashes' ,12, 5, 3);
+INSERT INTO makeup VALUES (8, 'Highlighter' ,35, 2, 30);
+INSERT INTO makeup VALUES (9, 'Lipstick' ,25, 8, 11);
+INSERT INTO makeup VALUES (10, 'Lipliner' ,19, 12, 22);
+INSERT INTO makeup VALUES (11, 'Lipgloss' ,22, 1, 3);
+INSERT INTO makeup VALUES (12, 'Brush' ,100, 13, 10); 
+INSERT INTO makeup VALUES (13, 'Setting Spray' ,23, 6, 2);
+INSERT INTO makeup VALUES (14, 'Primer' ,24, 3,4); 
+INSERT INTO makeup VALUES (15, 'Eyeshadows' , 30, 7, 12);
+SELECT * FROM makeup;
+SELECT * FROM makeup ORDER BY aisle;
+SELECT name, SUM(stock) FROM makeup GROUP BY name; 
+SELECT SUM(stock) FROM makeup
