@@ -1,0 +1,45 @@
+CREATE TABLE famous_people (id INTEGER PRIMARY KEY AUTOINCREMENT, fullname TEXT, born TEXT);
+INSERT into famous_people (fullname, born) VALUES ("Blake Lively", "United States"); 
+INSERT into famous_people (fullname, born) VALUES ("Ryan Reynolds", "Canada"); 
+INSERT into famous_people (fullname, born) VALUES ("Mila Kunis", "Ukraine");
+INSERT into famous_people (fullname, born) VALUES ("Ashton Kutcher", "United States"); 
+INSERT into famous_people (fullname, born) VALUES ("Demi Moore","United States"); 
+INSERT into famous_people (fullname, born) VALUES ("Justin Timberlake", "United States"); 
+
+CREATE TABLE movies (id INTEGER PRIMARY KEY AUTOINCREMENT, person_id INTEGER, title TEXT, release_date INTEGER, rating INTEGER); 
+INSERT into movies (person_id, title, release_date, rating) VALUES (1, "The Town", 2010, 7.5);
+INSERT into movies (person_id, title, release_date, rating) VALUES (2, "Mississippi Grind", 2015, 6.4); 
+INSERT into movies (person_id, title, release_date, rating) VALUES (3, "The Black Swan", 2010, 8);
+INSERT into movies (person_id, title, release_date, rating) VALUES (4, "The Butterfly Effect", 2004,7.6);
+INSERT into movies (person_id, title, release_date, rating) VALUES (5, "The Corporate Animals", 2019, 4.4);
+INSERT into movies (person_id, title, release_date, rating) VALUES (6, "The Social Network", 2010, 7.8);
+
+CREATE TABLE married (id INTEGER PRIMARY KEY AUTOINCREMENT, person1_id INTEGER, person2_id INTEGER); 
+INSERT into married (person1_id, person2_id) VALUES (1,2);
+INSERT into married (person1_id, person2_id) VALUES (3,4);
+
+SELECT fullname, born
+FROM famous_people
+ORDER BY born;
+
+SELECT famous_people.fullname, movies.title 
+FROM famous_people
+JOIN movies
+ON famous_people.id = movies.person_id;
+
+SELECT famous_people.fullname, movies.title, movies.release_date
+FROM famous_people
+JOIN movies
+ON famous_people.id = movies.person_id
+ORDER BY release_date ASC; 
+
+SELECT title, rating
+FROM movies
+ORDER BY rating ASC;
+
+SELECT a.fullname, b.fullname
+FROM married
+JOIN famous_people a
+ON married.person1_id = a.id
+JOIN famous_people b
+ON married.person2_id = b.id;
