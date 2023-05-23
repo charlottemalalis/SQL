@@ -14,7 +14,12 @@ INSERT INTO makeup VALUES (12, 'Brush' ,100, 13, 10);
 INSERT INTO makeup VALUES (13, 'Setting Spray' ,23, 6, 2);
 INSERT INTO makeup VALUES (14, 'Primer' ,24, 3,4); 
 INSERT INTO makeup VALUES (15, 'Eyeshadows' , 30, 7, 12);
-SELECT * FROM makeup;
+
+#1. What items are in what aisle? 
 SELECT * FROM makeup ORDER BY aisle;
+
+#2. What is the stock like on each items?
 SELECT name, SUM(stock) FROM makeup GROUP BY name; 
+
+#3. Total amount of stock 
 SELECT SUM(stock) FROM makeup
