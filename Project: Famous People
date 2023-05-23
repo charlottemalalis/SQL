@@ -18,25 +18,30 @@ CREATE TABLE married (id INTEGER PRIMARY KEY AUTOINCREMENT, person1_id INTEGER, 
 INSERT into married (person1_id, person2_id) VALUES (1,2);
 INSERT into married (person1_id, person2_id) VALUES (3,4);
 
+#1. In what country were the actors born?
 SELECT fullname, born
 FROM famous_people
 ORDER BY born;
 
+#2. What actors played in what movie?
 SELECT famous_people.fullname, movies.title 
 FROM famous_people
 JOIN movies
 ON famous_people.id = movies.person_id;
 
+#3. What movies came out recently and who was in it? 
 SELECT famous_people.fullname, movies.title, movies.release_date
 FROM famous_people
 JOIN movies
 ON famous_people.id = movies.person_id
 ORDER BY release_date ASC; 
 
+#4. Put the movies in order by the highest rating
 SELECT title, rating
 FROM movies
 ORDER BY rating ASC;
 
+#5. Who is married to who? 
 SELECT a.fullname, b.fullname
 FROM married
 JOIN famous_people a
