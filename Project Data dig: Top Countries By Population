@@ -220,41 +220,35 @@ INSERT INTO countries(name,population,percent_one_year_change,population_change,
 INSERT INTO countries(name,population,percent_one_year_change,population_change,density_per_sq_km,area_sq_km,net_migrants,fertility_rate,median_age,percent_of_world_pop) VALUES ('Antigua and Barbuda',97929,0.84,811,223,440,0,2.00,34.00,0);
 SELECT * FROM countries;
 
+#1. Find out the smallest and greatest world population
 SELECT COUNT (*) FROM COUNTRIES;
 SELECT MIN (percent_of_world_pop), MAX (percent_of_world_pop)
 FROM COUNTRIES;
 
+#2. Find out the average rating of fertility rate if the average is above 2.8
 SELECT NAME, AVG(fertility_rate) 
 from countries 
 GROUP BY NAME
 HAVING AVG (fertility_rate)> 2.8;
 
-
+#3. Create a column that shows which country had any changed within one year by outputting “percent_one_year_change” with ‘increase, decrease, no change’. 
 SELECT NAME,
-
   CASE
-
   WHEN percent_one_year_change > 1 THEN "INCREASE"
-
   WHEN percent_one_year_change < 1 THEN "DECREASE"
-  
   ELSE "NO_CHANGE"
-
   END as "ONE_YEAR_CHANGE" FROM countries
   ORDER BY ONE_YEAR_CHANGE ASC; 
  
+ #4. Extended of question above. How many countries had an increase, decrease and no change?
 SELECT COUNT(NAME),
-
   CASE
-
   WHEN percent_one_year_change > 1 THEN "INCREASE"
-
   WHEN percent_one_year_change < 1 THEN "DECREASE"
-  
   ELSE "NO_CHANGE"
-
   END as "ONE_YEAR_CHANGE" FROM countries
   GROUP BY "ONE_YEAR_CHANGE"; 
  
+ #5. Which countries has the median age above 30 and population below 500,000?
 SELECT NAME FROM COUNTRIES WHERE MEDIAN_AGE >30 AND POPULATION <500000; 
 
