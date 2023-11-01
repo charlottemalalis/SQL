@@ -1,0 +1,62 @@
+# Here are potential answers to the example questions in the final SQL project. 
+# Note that there are often multiple ways to write SQL to come up with the same answer. 
+
+#1. Find the top 5 artists with the highest total track sales (sum of the number of times their tracks were sold).
+SELECT a.Name AS ArtistName, SUM(il.Quantity) AS TotalSales
+FROM artists a
+JOIN albums al ON a.ArtistId = al.ArtistId
+JOIN tracks t ON al.AlbumId = t.AlbumId
+JOIN invoice_items il ON t.TrackId = il.TrackId
+GROUP BY a.Name
+ORDER BY TotalSales DESC
+LIMIT 5;
+
+#2. Determine the most popular genre among customers by finding the genre with the highest total sales.
+SELECT g.Name AS Genre, SUM(il.Quantity) AS TotalSales
+FROM genres g
+JOIN tracks t ON g.GenreId = t.GenreId
+JOIN invoice_items il ON t.TrackId = il.TrackId
+GROUP BY g.Name
+ORDER BY TotalSales DESC
+LIMIT 1;
+
+#3. Identify the customer who has been inactive the longest (i.e., made their last purchase the furthest in the past).
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY c.CustomerId
+ORDER BY LastPurchaseDate ASC
+LIMIT 1
+
+#4. Calculate the average track price for each album, and list the albums along with their average track prices.
+SELECT a.Title AS AlbumTitle, AVG(t.UnitPrice) AS AvgTrackPrice
+FROM albums a
+JOIN tracks t ON a.AlbumId = t.AlbumId
+GROUP BY a.AlbumId;
+
+#5. Find the number of customers and the total sales for each year, ordered by the year of their first purchase.
+SELECT
+    strftime('%Y', i.InvoiceDate) AS PurchaseYear,
+    COUNT(DISTINCT c.CustomerId) AS NumberOfCustomers,
+    SUM(i.Total) AS TotalSales
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY PurchaseYear
+ORDER BY PurchaseYear;
+
+#6. Calculate the average invoice amount for each customer, including their name and the average amount they spend.
+SELECT c.FirstName, c.LastName, AVG(i.Total) AS AvgInvoiceAmount
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY c.CustomerId;
+
+#7. Compare the total spending of customers who have made their first purchase in the USA vs those who made their first purchase in another country. 
+SELECT
+    CASE
+        WHEN c.Country = 'USA' THEN 'USA'
+        ELSE 'Other'
+    END AS CustomerLocation,
+    SUM(i.Total) AS TotalSpending
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY CustomerLocation;
+
